@@ -15,7 +15,7 @@ const userSchema=new mongoose.Schema({
     password:String
 });
 
-userSchema.plugin(encrypt, { secret:process.env.SECRET,encryptedFields:["password"]});
+userSchema.plugin(encrypt, { secret:process.env.SECRET,encryptedFields:["password"] });
 const User=new mongoose.model('User',userSchema);
 
 
@@ -28,16 +28,14 @@ app.get("/login",function(req,res){
 app.get("/register",function(req,res){
     res.render("register")
 });
-app.get("/secrets",function(req,res){
-    res.render("secrets")
-});
+
 app.get("/submit",function(req,res){
     res.render("submit");
 })
 
 app.post("/register",function(req,res){
     const newUser=new User({
-        email:req.body.userName,
+        email:req.body.username,
         password:req.body.password
     })
     newUser.save(function(err){
@@ -49,7 +47,7 @@ app.post("/register",function(req,res){
     });
 });
 app.post("/login",function(req,res){
-    const userName=req.body.userName;
+    const userName=req.body.username;
     const password=req.body.password;
     User.findOne({email:userName},function(err,foundUser){
         if(err){
